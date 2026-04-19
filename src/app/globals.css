@@ -1,34 +1,28 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --iit-blue: #0F3A70;
+  --iit-blue-light: #225191;
+  --steel: #7A8B99;
+  --steel-dark: #3F4A54;
+  --graphite: #1C1E21;
+  --white: #FFFFFF;
+  --off-white: #F9FAFB;
+  --bg-primary: #FFFFFF;
+  --text-primary: #1C1E21;
+  --text-secondary: #5C6A78;
+  --border: #E8ECEF;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --transition: all 0.3s ease;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-html {
-  height: 100%;
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+[data-theme="dark"] {
+  --bg-primary: #121417;
+  --text-primary: #F9FAFB;
+  --text-secondary: #A0AAB3;
+  --border: #2A3036;
+  --white: #1A1D21;
+  --off-white: #121417;
 }
 
 * {
@@ -37,13 +31,75 @@ body {
   margin: 0;
 }
 
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+}
+
 a {
   color: inherit;
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+/* Premium utility classes */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  border: 1px solid transparent;
+  font-size: 15px;
+}
+
+.btn-primary {
+  background-color: var(--iit-blue);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: var(--iit-blue-light);
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--iit-blue);
+  border-color: var(--iit-blue);
+}
+
+.btn-outline:hover {
+  background-color: var(--bg-primary);
+  color: var(--iit-blue-light);
+  border-color: var(--iit-blue-light);
+}
+
+/* Specific Badge colors */
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-green { background: #E6F4EA; color: #1E8E3E; }
+.badge-blue { background: #E8F0FE; color: #1A73E8; }
+.badge-orange { background: #FEF7E0; color: #F29900; }

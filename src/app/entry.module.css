@@ -1,0 +1,134 @@
+.container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('/hero.png');
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9999; /* Covering Navbar */
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(15,58,112,0.95), rgba(28,30,33,0.9));
+  z-index: 1;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  background: var(--white);
+  padding: 60px;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+}
+
+.brand {
+  margin-bottom: 48px;
+}
+
+.logoMark {
+  width: 48px;
+  height: 48px;
+  background-color: var(--iit-blue);
+  border-radius: 8px;
+  margin: 0 auto 24px auto;
+}
+
+.title {
+  font-size: 28px;
+  color: var(--iit-blue);
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 20px;
+  color: var(--steel-dark);
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.tagline {
+  color: var(--text-secondary);
+  font-size: 16px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 16px;
+  transition: var(--transition);
+  border: 1px solid transparent;
+}
+
+.btnPrimary {
+  background-color: var(--iit-blue);
+  color: white;
+}
+
+.btnPrimary:hover {
+  background-color: var(--iit-blue-light);
+  transform: translateY(-2px);
+}
+
+.btnSecondary {
+  background-color: var(--graphite);
+  color: white;
+}
+
+.btnSecondary:hover {
+  background-color: #333;
+  transform: translateY(-2px);
+}
+
+.btnOutline {
+  background-color: transparent;
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+
+.btnOutline:hover {
+  background-color: var(--off-white);
+  border-color: var(--steel);
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 16px 0;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.divider::before, .divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid var(--border);
+}
+
+.divider span {
+  padding: 0 16px;
+}

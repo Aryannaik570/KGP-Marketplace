@@ -1,0 +1,207 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String   @id @default(uuid())
+  email         String   @unique
+  fullName      String
+  phone         String?
+  passwordHash  String   
+  role          String
+  isVerifiedKgp Boolean  @default(false)
+  otp           String?  // Temporary mockup OTP
+  isActivated   Boolean  @default(false)
+
+  // Relations
+  founderProfile  FounderProfile?
+  investorProfile InvestorProfile?
+  companyProfile  CompanyProfile?
+}
+
+model FounderProfile {
+  id              String   @id @default(uuid())
+  userId          String   @unique
+  user            User     @relation(fields: [userId], references: [id])
+  
+  affiliation     String?
+  department      String?
+  linkedinUrl     String?
+  academicBg      String?
+  labGroup        String?
+  patents         String?
+  publications    String?
+
+  startups        Startup[]
+  technologies    Technology[]
+}
+
+model InvestorProfile {
+  id              String   @id @default(uuid())
+  userId          String   @unique
+  user            User     @relation(fields: [userId], references: [id])
+
+  investorType    String?
+  firmName        String?
+  website         String?
+  aum             String?
+  preferredStage  String?
+  ticketMin       Int?
+  ticketMax       Int?
+  esgStrict       Boolean?
+  geoPreference   String?
+  targetMaterials String?
+  inboundPref     String?
+}
+
+model Startup {
+  id              String         @id @default(uuid())
+  founderId       String
+  founder         FounderProfile @relation(fields: [founderId], references: [id])
+  
+  // Block 1: Identity & Positioning
+  name            String
+  tagline         String?
+  website         String?
+  foundedDate     String?
+  headquarters    String?
+  industry        String
+  shortDesc       String?
+
+  // Block 2: Problem & Solution
+  problem         String
+  solution        String
+  urgencyWhyNow   String?
+  differentiation String?
+
+  // Block 3: Business Model
+  targetCustomer  String?
+  businessModel   String?
+  pricingModel    String?
+  salesMotion     String?
+
+  // Block 4: Traction
+  primaryMetric   String?
+  userCount       String?
+  revenueARR      String?
+  retention       String?
+  growthRate      String?
+
+  // Block 5: Financials
+  currentRaise    String?
+  fundingRequired String
+  amountRaised    String?
+  valuationRange  String?
+  burnRate        String?
+  runway          String?
+  useOfFunds      String?
+
+  // Block 6: Team
+  keyEmployees    String?
+  advisors        String?
+  boardMembers    String?
+
+  // Block 7: Market
+  targetMarket    String?
+  icp             String?
+  competitorSet   String?
+
+  // Block 8: Defensibility & Tech
+  coreIp          String?
+  technicalMoat   String?
+  universityLinkage String?
+  labOrigin       String?
+
+  // Block 9: Validation
+  pilots          String?
+  customers       String?
+  lois            String?
+  grants          String?
+
+  // Block 10 & Platform Extras
+  confidentiality String?        @default("Public")
+  incubationStatus String?
+  b2bClassification String?
+  commercialReadiness String?
+  esgClimateTag   String?
+
+  // Image Links
+  logoUrl         String?
+  bannerUrl       String?
+}
+
+model Technology {
+  id              String         @id @default(uuid())
+  founderId       String
+  founder         FounderProfile @relation(fields: [founderId], references: [id])
+
+  // Section 1: Basic Identity
+  title           String
+  subtitle        String?
+  sector          String         @default("Deep Tech")
+  inventorName    String?
+  coInventors     String?
+  department      String?
+
+  // Section 2: Technical Summary
+  abstract        String?
+  prototypeStatus String?        // Left here for backwards comp mapping
+  problemSolved   String?
+  mechanism       String?
+  novelty         String?
+
+  // Section 3: Evidence and validation
+  stageOfDev      String?
+  testEnvironment String?
+  poCAvailable    Boolean        @default(false)
+
+  // Section 4: IP and Disclosure
+  patentStatus    String
+  filingDate      String?
+  publicDisclosureRisk String?
+
+  // Section 5: Prior art and competition
+  competitorLandscape String?
+
+  // Section 6: Funding and Obligations (Internal Only)
+  fundingSource   String?
+  sponsorObligations String?
+
+  // Section 7: Commercialization and Market
+  targetIndustries String?
+  roiBand          String?
+  adoptionFriction String?
+  marketInterest   String?
+
+  // Section 8: Feasibility
+  capexEst         String?
+  regulatoryBurden String?
+
+  // General attributes from previous schema
+  costReduction   Float?
+  visibility      String         @default("Public")
+  ndaRequired     Boolean        @default(false)
+  trl             Int
+
+  // S3 or Local Upload Links
+  pitchDeckUrl    String?
+  demoVideoUrl    String?
+  thumbnailUrl    String?
+}
+
+model CompanyProfile {
+  id              String   @id @default(uuid())
+  userId          String   @unique
+  user            User     @relation(fields: [userId], references: [id])
+  
+  companyName     String?
+  industry        String?
+  headquarters    String?
+  techInterests   String?
+  targetTRL       String?
+}
